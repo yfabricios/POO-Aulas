@@ -1,6 +1,3 @@
-from typing_extensions import Self
-
-
 class dados_pais:
     def __init__(self, populacao, pais, km):
         self.pais = pais
