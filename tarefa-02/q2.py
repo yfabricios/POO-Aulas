@@ -5,7 +5,7 @@ class Pais:
         self.area = area
 
     def calcular_densidade(self):
-        return self.pop / self.area
+        return self.popula / self.area
 
 paises = []
 
