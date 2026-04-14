@@ -23,6 +23,7 @@ class Retangulo:
         return (self.__base ** 2 + self.__altura ** 2) ** (1/2)
 
 class UI:
+    @staticmethod
     def main():
         r = Retangulo()
         r.set_base(float(input('Base: ')))
