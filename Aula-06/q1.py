@@ -40,11 +40,52 @@ class Viagem:
         if t >= 0: self.__tempo = t
         else: raise ValueError()
     def get_distancia(self):
-        return self.__dsitancia
+        return self.__distancia
     def get_tempo(self):
         return self.__tempo
     def velocidade_media(self):
         return self.__distancia / self.__tempo
+
+class Conta_Bancaria:
+    def __init__(self):
+        self.__nome = str
+        self.__num_conta = 0.0
+        self.__saldo = 0.0
+    def get_nome(self):
+        return self.__nome
+    def set_num_conta(self, v):
+        if v >= 0: self.__num_conta = v
+        else: raise ValueError()
+    def get_num_conta(self):
+        return self.__num_conta
+    def set_saldo(self, v):
+        if v >= 0: self.__saldo = v
+        else: raise ValueError()
+    def get_saldo(self):
+        return self.__saldo
+    def metodos(self, metodo, valor):
+        if metodo == "d":
+            self.sald += valor
+            return valor
+
+        elif metodo == "s":
+            self.sald -= valor
+            return valor
+
+        else: raise ValueError("Digite uma Operação valida")
+
+def conta_bancaria():
+        print("Cálculo da Velocidade Media")
+        x = Conta_Bancaria()
+        x.set_num_conta(float(input("Informe o Número da Conta: ")))     # método de instância
+        x.set_saldo(float(input("Informe o seu Saldo: ")))     # método de instância
+        metodos = x.metodos()
+        print(f"Conta Bancaria de {x.get_nome()}, tem numero de conta: {x.get_num_conta()}, Saldo Antigo: {x.get_saldo}.\n  Novo Valor Bancario = {metodos})
+    
+    
+
+
+
 
 # Interface com usuário (User Interface) - prints, inputs
 class UI:
@@ -56,6 +97,7 @@ class UI:
             if op == 1: UI.triangulo()
             if op == 2: UI.circulo()
             if op == 3: UI.viagem()
+            if op == 4: UI.conta_bancaria()
 
     @staticmethod
     def menu():
@@ -85,9 +127,12 @@ class UI:
     def viagem():
         print("Cálculo da Velocidade Media")
         x = Viagem()
-        x.set_distancia(float(input("Informe o valor da raio: ")))     # método de instância
-        x.set_tempo(float(input("Informe o valor da raio: ")))     # método de instância
-        area = x.velocidade_media()
-        print(f"Uma Velocidade Media com distancia = {x.set_distancia()}, e tempo =  tem área = {area}, e circunferencia = {circunferencia}")
+        x.set_distancia(float(input("Informe o valor da distancia: ")))     # método de instância
+        x.set_tempo(float(input("Informe o valor do tempo: ")))     # método de instância
+        vel_med = x.velocidade_media()
+        print(f"Uma Velocidade Media com distancia = {x.get_distancia()}, e tempo = {x.get_tempo()}. Tem Velocidade Media = {vel_med}km/h")
+
+    @staticmethod
+    
 
 UI.main()
