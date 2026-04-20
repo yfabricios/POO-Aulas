@@ -178,7 +178,7 @@ class UI:
         x.set_altura(float(input("Informe o valor da altura: ")))
         area = x.calc_area()
         print(f"Um triângulo com base {x.get_base()} e altura {x.get_altura()} tem área = {area}")
-        print("="*40)
+        print("="*100)
 
     @staticmethod
     def circulo():
@@ -188,7 +188,7 @@ class UI:
         area = x.calc_area()
         circunferencia = x.calc_circunferencia()
         print(f"Um Circulo com raio {x.get_raio()}, tem área = {area}, e circunferencia = {circunferencia}")
-        print("="*40)
+        print("="*100)
 
     @staticmethod
     def viagem():
@@ -198,7 +198,7 @@ class UI:
         x.set_tempo(float(input("Informe o valor do tempo: ")))     # método de instância
         vel_med = x.velocidade_media()
         print(f"Uma Velocidade Media com distancia = {x.get_distancia()}, e tempo = {x.get_tempo()}. Tem Velocidade Media = {vel_med}km/h")
-        print("="*40)
+        print("="*100)
 
     @staticmethod
     def conta_bancaria():
@@ -211,7 +211,7 @@ class UI:
         valor = float(input("Digite o valor: "))     # método de instância
         metodos = x.metodos(operacao, valor)
         print(f"Conta Bancaria de {x.get_nome()}, tem numero de conta: {x.get_num_conta()}, Saldo Antigo: {x.get_saldo():.2f}\n Novo Valor Bancario = {metodos:.2f}")
-        print("="*40)
+        print("="*100)
 
     @staticmethod
     def ingresso():
@@ -222,6 +222,6 @@ class UI:
         idade = float(input("Digite a sua Idade: "))
         calculo_ingresso = x.calc_ingresso(idade)
         print(f"Seu Ingresso que é do dia: {x.get_dia()}, e tem horario às: {x.get_horario()}. Sai pelo valor de: {calculo_ingresso}")
-        print("="*40)    
+        print("="*100)    
 
 UI.main()
