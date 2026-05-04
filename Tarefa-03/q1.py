@@ -1,104 +1,45 @@
-class Viagem:
-    def __init__(self, dest, dist, lt):
-        self.set_destino(dest)
-        self.set_distancia(dist)
-        self.set_litros(lt)
+class Bingo:
+    def __init__(self, num_bolas):
+        self.set_num_bolas(num_bolas)
+        self.set_bolas()
 
-    def set_destino(self, d):
-        self.__dest = d
-
-    def set_distancia(self, d):
-        if d >= 0: self.__dist = d
+    def set_num_bolas(self, b):
+        if b >= 0: self.__num_bolas = b
         else: raise ValueError()
 
-    def set_litros(self, l):
-        if l >= 0: self.__lt = l
+    def set_bolas(self, b):
+        if b >= 0: self.__bolas = b
         else: raise ValueError()
 
-    def get_destino(self):
-        return self.__dest
+    def get_num_bolas(self): return self.__num_bolas
+    def get_bolas(self): return self.__bolas
 
-    def get_distancia(self):
-        return self.__dist
+class BingoUI:
 
-    def get_litros(self):
-        return self.__lt
-
-    def calc_consumo(self):
-        return self.__dist / self.__lt
-
-    def __str__(self):
-        return f"Seu destino é: {self.__dest}, Distancia = {self.__dist}Km, Litros = {self.__lt}l"
-
-class Pais:
-    def __init__(self, n, p, a):
-        self.set_nome(n)
-        self.set_populacao(p)
-        self.set_area(a)
-
-    def set_nome(self, v):
-        self.__n = v
-
-    def set_populacao(self, v):
-        if v >= 0: self.__p = v
-        else: raise ValueError()
-
-    def set_area(self, v):
-        if v >= 0: self.__a = v
-        else: raise ValueError()
-
-    def get_nome(self):
-        return self.__n
-
-    def get_populacao(self):
-        return self.__p
-
-    def get_area(self):
-        return self.__a
-
-    def calc_densidade(self):
-        return self.__p / self.__a
-
-    def __str__(self):
-        return f"Seu destino é: {self.__n}, População = {self.__p}, area = {self.__a}km"
-    
-class UI:
     @staticmethod
     def main():
-        op = 0
-        while op != 2:
-            op = UI.menu()
-            if op == 1: UI.viagem()
-            if op == 2: UI.pais()
+        op = 0 
+        while op != 3:
+            op = BingoUI.menu()
+            if op == 1: BingoUI.iniciar_jogo()
+            if op == 2: BingoUI.sortear()
+            if op == 3: BingoUI.sorteados()
 
     @staticmethod
     def menu():
-        print("1 - Viagem")
-        print("2 - Pais")
-        op = int(input("Informe uma opção: "))
-        return op    
+        print("1-Iniciar Jogo")
+        print("2-Sortear")
+        print("3-Sorteados")
+        return int(input("Escolha uma opção: "))
+    
+    @classmethod 
+    def iniciar_jogo(cls):
+        id = int(input("Informe o id do contato: "))
+        nome = input("Informe o nome: ")
+        email = input("Informe o e-mail: ")
+        fone = input("Informe o telefone: ")
+        x = Bingo(id, nome, email, fone)
+        cls.contatos.append(x)
+        print("Contato inserido com sucesso")   
 
-    @staticmethod
-    def viagem():
-        print("Cálculo da área e da diagonal do retangulo")
-        dest = (str(input("destino: ")))
-        dist = (float(input("distancia: ")))
-        litro = (float(input("litros: ")))
-        x = Viagem(dest, dist, litro)
-        consumo = x.calc_consumo()
-        print(x)
-        print(f"Seu Consumo é: {consumo}")
-        print("="*100)
-
-    def pais():
-        print("Cálculo da área e da diagonal do retangulo")
-        n = (str(input("Nome: ")))
-        p = (float(input("População: ")))
-        a = (float(input("Área: ")))
-        x = Pais(n, p, a)
-        densidade = x.calc_densidade()
-        print(x)
-        print(f"Sua Densidade é: {densidade}")
-        print("="*100)
-
-UI.main()
+BingoUI.main()   
