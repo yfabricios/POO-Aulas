@@ -58,5 +58,44 @@ class Boleto:
         s += f"Situação: {self.__situacao_pagamento}"
         return s
 
-
+class UI:
+    __boletos = []
+    @staticmethod
+    def main():
+        op = 0
+        while op != 10:
+            op = UI.menu()
+            if op == 1: UI.inserir()
+            if op == 2: UI.listar()
+            if op == 3: UI.vencidos()
+        
+    @staticmethod
+    def menu():
+        print("-------------------------------------")
+        print(" 1-Inserir, 2-Listar, 3-Atrualizar, 4-Excluir ")
+        print(' 5-Boletos em Abertos, 6-Boletos Pagos ')
+        print(' 7-Boletos a Vencer, 8-Boletos Vencidos ')
+        print('9-Pagar Boletos, 10-Fim')
+        print("-------------------------------------")
+        return int(input('Escolha uma opção'))
     
+    @classmethod
+    def inserir(cls):
+        cod = input('codigo do boleto com 10 digitos: ')
+        emissao = datetime.strftime(input('data de emissão dd/mm/aaaa'))
+        venc = datetime.strftime(input('data de vencimento dd/mm/aaaa'))
+        valor = float(input(cod, emissao, venc, valor))
+        x = Boleto(cod, emissao, venc, valor)
+        UI.__boletos.append(x)
+    
+    @classmethod
+    def listar(cls):
+        for x in cls.__boletos: print(x)
+
+    @classmethod
+    def vencidos(cls):
+        for x in cls.__boletos:
+            if x.get_situacao_pagamento() == Pagamento.em_aberto and x.get_data_vencimento() < datetime.now():
+                print(x)
+
+UI.main()
