@@ -9,7 +9,7 @@ class Paciente:
 
     def idade(self):
         hoje = datetime.now()
-        idade = hoje.year - self.__nasc.year
+        idade = hoje.year - self.__nasc.year - ((hoje.month, hoje.day) < (self.__nasc.month, self.__nasc.day ))
         return idade
 
     def __str__(self):
