@@ -1,7 +1,7 @@
 from models.profissional import Profissional
 import json
 
-class ClienteDAO:
+class ProfissionalDAO:
     def __init__(self):
         self.__arquivo = "profissional.json"
         self.__objetos = []

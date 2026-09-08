@@ -1,7 +1,7 @@
-from Poo10.templates.manterprofissionalui import ManterProfissionalUI
 from templates.manterclienteui import ManterClienteUI
 from templates.manterservicoui import ManterServicoUI
 from templates.manterhorarioui import ManterHorarioUI
+from templates.manterprofissionalui import ManterProfissionalUI
 import streamlit as st
 
 class IndexUI:
