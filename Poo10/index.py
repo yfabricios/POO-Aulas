@@ -12,5 +12,4 @@ class IndexUI:
         if op == "Horários": ManterHorarioUI.main()
         if op == "Profissionais": ManterProfissionalUI.main()
 
-
 IndexUI.main()

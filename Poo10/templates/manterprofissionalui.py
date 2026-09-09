@@ -12,7 +12,7 @@ class ManterProfissionalUI:
         with tab3: ManterProfissionalUI.atualizar()
         with tab4: ManterProfissionalUI.excluir()
     def listar():
-        profissionais = Service.cliente_listar()
+        profissionais = Service.profissional_listar()
         if len(profissionais) == 0: st.write("Nenhum profissional cadastrado")
         else:
             list_dic = []
@@ -29,21 +29,21 @@ class ManterProfissionalUI:
             time.sleep(2)
             st.rerun()
     def atualizar():
-        profissionais = Service.cliente_listar()
+        profissionais = Service.profissional_listar()
         if len(profissionais) == 0: st.write("Nenhum profissional cadastrado")
         else:
             op = st.selectbox("Atualização de Profissional", profissionais)
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
-            especialidade = st.text_input("Nova especialidade", op.get_fone())
+            especialidade = st.text_input("Nova especialidade", op.get_especialidade())
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.cliente_atualizar(id, nome, email, especialidade)
+                Service.profissional_atualizar(id, nome, email, especialidade)
                 st.success("Profissional atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
     def excluir():
-        profissionais = Service.cliente_listar()
+        profissionais = Service.profissional_listar()
         if len(profissionais) == 0: st.write("Nenhum profissional cadastrado")
         else:
             op = st.selectbox("Exclusão de Profissionais", profissionais)

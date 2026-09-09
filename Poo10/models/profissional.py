@@ -15,7 +15,7 @@ class Profissional:
         if email == "": raise ValueError("E-mail deve ser informado")
         self.__email = email
     def set_especialidade(self, especialidade):
-        if especialidade == "": raise ValueError("Fone deve ser informado")
+        if especialidade == "": raise ValueError("Especialidade deve ser informado")
         self.__especialidade = especialidade
 
     def get_id(self) : return self.__id
@@ -27,7 +27,7 @@ class Profissional:
         return f"{self.__id} - {self.__nome} - {self.__email} - {self.__especialidade}"
     
     def to_json(self):
-        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__especialidade}
+        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "especialidade":self.__especialidade}
     
     @staticmethod
     def from_json(dic):

@@ -73,7 +73,7 @@ class Service:
         HorarioDAO().excluir(id)
 
     @staticmethod
-    def profissonal_inserir(nome, email, especialidade):
+    def profissional_inserir(nome, email, especialidade):
         obj = Profissional(0, nome, email, especialidade)
         ProfissionalDAO().inserir(obj)
     @staticmethod
