@@ -18,16 +18,16 @@ class Cliente:
         if fone == "": raise ValueError("Fone deve ser informado")
         self.__fone = fone
 
-    def get_id(self) : return self.__id
-    def get_nome(self) : return self.__nome
-    def get_email(self) : return self.__email
-    def get_fone(self) : return self.__fone
+    def get_id(self): return self.__id
+    def get_nome(self): return self.__nome
+    def get_email(self): return self.__email
+    def get_fone(self): return self.__fone
 
     def __str__(self):
         return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
     
     def to_json(self):
-        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone }
+        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__fone}
     
     @staticmethod
     def from_json(dic):
