@@ -26,8 +26,11 @@ class ManterClienteUI:
         email = st.text_input("Informe o e-mail")
         fone = st.text_input("Informe o fone")
         id_convenio = st.text_input("Informe o convenio")
+        convenios = Service.convenio_listar()
 
         if st.button("Inserir"):
+            
+            op = st.selectbox("Atualização de convenio", convenios)
             Service.cliente_inserir(nome, email, fone, id_convenio)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
