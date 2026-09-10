@@ -6,6 +6,6 @@ class IndexUI:
     def main():
         op = st.sidebar.selectbox("Menu", ["Clientes", "Convenios"])
         if op == "Clientes": ManterClienteUI.main()
-        if op == "Convenio": ManterConvenioUI.main()
+        if op == "Convenios": ManterConvenioUI.main()
 
 IndexUI.main()

@@ -6,21 +6,21 @@ from models.conveniodao import ConvenioDAO
 class Service:
     @staticmethod
     def cliente_inserir(nome, email, fone, id_convenio):
-        obj = Cliente(0, nome, email, fone, id_convenio)
+        obj = Cliente(0, nome, email, fone, int(id_convenio))
         ClienteDAO().inserir(obj)
     @staticmethod
     def cliente_listar():
         return ClienteDAO().listar()
     @staticmethod
     def cliente_listar_id(id):
-        return ClienteDAO().listar_id(id)
+        return ClienteDAO().listar_id(int(id))
     @staticmethod
     def cliente_atualizar(id, nome, email, fone, id_convenio):
-        obj = Cliente(id, nome, email, fone, id_convenio)
+        obj = Cliente(int(id), nome, email, fone, int(id_convenio))
         ClienteDAO().atualizar(obj)
     @staticmethod
     def cliente_excluir(id):
-        ClienteDAO().excluir(id)
+        ClienteDAO().excluir(int(id))
 
 
     @staticmethod
@@ -32,11 +32,11 @@ class Service:
         return ConvenioDAO().listar()
     @staticmethod
     def convenio_listar_id(id):
-        return ConvenioDAO().listar_id(id)
+        return ConvenioDAO().listar_id(int(id))
     @staticmethod
     def convenio_atualizar(id, nome, contato, fone):
-        obj = Convenio(id, nome, contato, fone)
+        obj = Convenio(int(id), nome, contato, fone)
         ConvenioDAO().atualizar(obj)
     @staticmethod
     def convenio_excluir(id):
-        ConvenioDAO().excluir(id)
+        ConvenioDAO().excluir(int(id))
