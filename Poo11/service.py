@@ -122,6 +122,7 @@ class Service:
     def atendimento_listar():
         r = AtendimentoDAO().listar()
         r.sort(key = lambda obj : obj.get_data())
+        return r
     @staticmethod
     def atendimento_listar_id(id):
         return AtendimentoDAO().listar_id(id)
