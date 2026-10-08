@@ -35,7 +35,6 @@ class ManterAtendimentoUI:
         avaliacao = st.text_input("Informe a avaliação")
         prescricao = st.text_input("Informe a prescrição")
         horario = st.selectbox("Informe o horário", horarios)
-        
         if st.button("Inserir"):
             Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id())
             st.success("Atendimento inserido com sucesso")
@@ -54,7 +53,6 @@ class ManterAtendimentoUI:
             avaliacao = st.text_input("Informe a nova avaliação", op.get_avaliacao())
             prescricao = st.text_input("Informe a nova prescrição", op.get_prescricao())
             horario = st.selectbox("Informe o novo horário", horarios, next((i for i, c in enumerate(horarios) if c.get_id() == op.get_id_horario()), None))
-
             if st.button("Atualizar"):
                 Service.atendimento_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id())
                 st.success("Atendimento atualizado com sucesso")
