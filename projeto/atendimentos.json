@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "data": "20/10/2026 10:36",
+    "queixa_principal": "dor de cabe\u00e7a",
+    "historico_saude": "bom",
+    "avaliacao": "boa",
+    "prescricao": "dipirona",
+    "id_horario": 2,
+    "total": 10.0,
+    "pago": true
+  }
+]
