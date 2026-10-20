@@ -35,12 +35,20 @@ class ManterAtendimentoUI:
         avaliacao = st.text_input("Informe a avaliação")
         prescricao = st.text_input("Informe a prescrição")
         
-        # Novos campos exigidos pela Tarefa 11
-        total = st.number_input("Informe o valor total", min_value=0.0, format="%.2f")
-        pago = st.checkbox("Pago?")
-
+        # Seleciona o horário
         horario = st.selectbox("Informe o horário", horarios)
         
+        # Descobre o preço automaticamente com base no serviço associado ao horário
+        sugestao_valor = 0.0
+        if horario and horario.get_id_servico():
+            servico = Service.servico_listar_id(horario.get_id_servico())
+            if servico:
+                sugestao_valor = servico.get_valor()
+
+        # Permite que o usuário verifique ou altere o preço (ex: R$ 200,00)
+        total = st.number_input("Valor Total do Atendimento", value=float(sugestao_valor), format="%.2f")
+        pago = st.checkbox("Pago?")
+
         if st.button("Inserir"):
             Service.atendimento_inserir(
                 datetime.strptime(data, "%d/%m/%Y %H:%M"), 
@@ -49,8 +57,8 @@ class ManterAtendimentoUI:
                 avaliacao, 
                 prescricao, 
                 horario.get_id(), 
-                total,
-                pago  
+                total,  # Passa o preço correto verificado
+                pago
             )
             st.success("Atendimento inserido com sucesso")
             time.sleep(2)
