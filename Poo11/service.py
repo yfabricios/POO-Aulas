@@ -73,7 +73,7 @@ class Service:
         c.set_id_profissional(id_profissional)
         HorarioDAO().inserir(c)
     @staticmethod
-    def horario_listar(): # select - order by
+    def horario_listar():
         r = HorarioDAO().listar()
         r.sort(key = lambda obj : obj.get_data())
         return r
