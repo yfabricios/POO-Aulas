@@ -9,6 +9,7 @@ class ListarHorariosConfirmadosHojeUI:
         
         if len(horarios) == 0: 
             st.write('Nenhum horário confirmado para hoje')
+    
         else:
             list_dic = []
             for obj in horarios:

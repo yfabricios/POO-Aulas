@@ -5,5 +5,12 @@
     "email": "profissa@gmail.com",
     "especialidade": "tutor de crian\u00e7a",
     "senha": "1234"
+  },
+  {
+    "id": 2,
+    "nome": "Maria",
+    "email": "maria@gmail.com",
+    "especialidade": "Cozinheira",
+    "senha": "1234"
   }
 ]

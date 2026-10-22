@@ -223,12 +223,10 @@ class Service:
             dt = obj.get_data()
             if isinstance(dt, str):
                 dt = datetime.fromisoformat(dt)
-            
             if obj.get_confirmado() == True and obj.get_id_cliente() != None and dt.date() == hoje:
                 h.append(obj)
                 
         def obter_data(obj):
             return obj.get_data()
-
         h.sort(key=obter_data)
         return h

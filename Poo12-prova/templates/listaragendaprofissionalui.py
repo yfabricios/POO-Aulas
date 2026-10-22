@@ -12,7 +12,6 @@ class ListarAgendaProfissionalUI:
         else:
             def formatar_nome(p):
                 return p.get_nome()
-
             prof = st.selectbox('Selecione o profissional', profissionais, format_func=formatar_nome)
             
             if prof != None:

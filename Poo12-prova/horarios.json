@@ -46,5 +46,13 @@
     "id_cliente": 2,
     "id_servico": 1,
     "id_profissional": 1
+  },
+  {
+    "id": 7,
+    "data": "22/10/2026 13:47",
+    "confirmado": true,
+    "id_cliente": 2,
+    "id_servico": 2,
+    "id_profissional": 2
   }
 ]

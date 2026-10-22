@@ -15,8 +15,6 @@ from templates.confirmarservicoui import ConfirmarServicoUI
 from templates.admalterarsenhaui import ADMAlterarSenhaUI
 from templates.registraratendimentoui import RegistrarAtendimentoUI
 from templates.pagaratendimentoui import PagarAtendimentoUI
-
-# Novas importações das questões da prova
 from templates.listarhorariosconfirmadoshojeui import ListarHorariosConfirmadosHojeUI
 from templates.listaragendaprofissionalui import ListarAgendaProfissionalUI
 
