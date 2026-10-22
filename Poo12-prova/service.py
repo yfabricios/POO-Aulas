@@ -1,5 +1,5 @@
-from models.cliente import Cliente         # entidade
-from models.clientedao import ClienteDAO   # persistência
+from models.cliente import Cliente
+from models.clientedao import ClienteDAO
 from models.servico import Servico
 from models.servicodao import ServicoDAO
 from models.horario import Horario
@@ -168,7 +168,6 @@ class Service:
 
     @staticmethod
     def atendimentoitem_inserir(id_atendimento, id_servico, qtd, valor):
-        # Corrigido para seguir a ordem correta dos parâmetros do AtendimentoItens: (id, id_atendimento, id_servico, qtd, valor)
         obj = AtendimentoItens(0, id_atendimento, id_servico, qtd, valor)
         AtendimentoItensDAO().inserir(obj)
 
@@ -215,55 +214,21 @@ class Service:
         for p in Service.profissional_listar():
             if p.get_email() == email and p.get_senha() == senha: return {"id": p.get_id(), "nome": p.get_nome()}
         return None
-    @staticmethod
-    def horarios_confirmados_hoje():
-        hoje = datetime.now().date()
-        resultado = []
-        
-        for h in Service.horario_listar():
-            dt = h.get_data()
-            # Converte para datetime caso a data venha como string do JSON
-            if isinstance(dt, str):
-                dt = datetime.fromisoformat(dt)
-                
-            # Filtra: confirmado, possui cliente e é da data de hoje
-            if h.get_confirmado() and h.get_id_cliente() is not None and dt.date() == hoje:
-                cliente = Service.cliente_listar_id(h.get_id_cliente())
-                servico = Service.servico_listar_id(h.get_id_servico())
-                profissional = Service.profissional_listar_id(h.get_id_profissional())
-                
-                resultado.append({
-                    "id": h.get_id(),
-                    "data": dt,
-                    "cliente": cliente.get_nome() if cliente else "N/A",
-                    "servico": servico.get_descricao() if servico else "N/A",
-                    "profissional": profissional.get_nome() if profissional else "N/A"
-                })
-                
-        # Ordena do menor para o maior horário do dia
-        resultado.sort(key=lambda x: x["data"])
-        return resultado
 
     @staticmethod
-    def agenda_profissional(id_profissional):
-        resultado = []
-        
-        for h in Service.horario_listar():
-            if h.get_id_profissional() == id_profissional:
-                dt = h.get_data()
-                if isinstance(dt, str):
-                    dt = datetime.fromisoformat(dt)
-                    
-                cliente = Service.cliente_listar_id(h.get_id_cliente()) if h.get_id_cliente() else None
-                servico = Service.servico_listar_id(h.get_id_servico()) if h.get_id_servico() else None
+    def horarios_confirmados_hoje():
+        h = []
+        hoje = datetime.now().date()
+        for obj in Service.horario_listar():
+            dt = obj.get_data()
+            if isinstance(dt, str):
+                dt = datetime.fromisoformat(dt)
+            
+            if obj.get_confirmado() == True and obj.get_id_cliente() != None and dt.date() == hoje:
+                h.append(obj)
                 
-                resultado.append({
-                    "id": h.get_id(),
-                    "data": dt,
-                    "cliente": cliente.get_nome() if cliente else "Sem Cliente",
-                    "servico": servico.get_descricao() if servico else "Sem Serviço"
-                })
-                
-        # Ordena da menor para a maior data
-        resultado.sort(key=lambda x: x["data"])
-        return resultado
+        def obter_data(obj):
+            return obj.get_data()
+
+        h.sort(key=obter_data)
+        return h
