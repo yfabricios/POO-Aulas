@@ -1,7 +1,12 @@
 [
   {
     "id": 1,
-    "descricao": "aula particular",
+    "descricao": "aula gratuita",
     "valor": 200.0
+  },
+  {
+    "id": 2,
+    "descricao": "Fazer p\u00e3o",
+    "valor": 100.0
   }
 ]

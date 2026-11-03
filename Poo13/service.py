@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 from models.cliente import Cliente
 from models.clientedao import ClienteDAO
 from models.servico import Servico
@@ -43,8 +44,12 @@ class Service:
     
     @staticmethod
     def servico_inserir(descricao, valor):
-        obj = Servico(0, descricao, valor)
-        ServicoDAO().inserir(obj)
+        for obj in Service.servico_listar():
+            if obj.get_descricao() == descricao:
+                raise ValueError("Serviço já cadastrado")
+        c = Servico(0, descricao, valor)
+        ServicoDAO().inserir(c)
+
     @staticmethod
     def servico_listar():
         r = ServicoDAO().listar()
@@ -53,13 +58,24 @@ class Service:
     @staticmethod
     def servico_listar_id(id):
         return ServicoDAO().listar_id(id)
+
     @staticmethod
     def servico_atualizar(id, descricao, valor):
-        obj = Servico(id, descricao, valor)
-        ServicoDAO().atualizar(obj)
+        for obj in Service.servico_listar():
+            if obj.get_id() != id and obj.get_descricao() == descricao:
+                raise ValueError("Descrição já cadastrada em outro serviço")
+
+        c = Servico(id, descricao, valor)
+        ServicoDAO().atualizar(c)
+
     @staticmethod
     def servico_excluir(id):
-        ServicoDAO().excluir(id)
+        for obj in Service.horario_listar():
+            if obj.get_id_servico() == id:
+                raise ValueError("Serviço já agendado: não é possível excluir")
+
+        c = Servico(id, "sem descrição", 0)
+        ServicoDAO().excluir(c)
 
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):

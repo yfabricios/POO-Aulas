@@ -35,7 +35,6 @@ class ManterAtendimentoUI:
         avaliacao = st.text_input("Informe a avaliação")
         prescricao = st.text_input("Informe a prescrição")
         
-        # Novos campos exigidos pela Tarefa 11
         total = st.number_input("Informe o valor total", min_value=0.0, format="%.2f")
         pago = st.checkbox("Pago?")
 
