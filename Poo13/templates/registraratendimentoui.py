@@ -34,8 +34,7 @@ class RegistrarAtendimentoUI:
 
             if st.button("Registrar"):
                 total = servico.get_valor() * qtd
-                Service.atendimento_inserir(
-                    datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id(), total, False)
+                Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), queixa_principal, historico_saude, avaliacao, prescricao, horario.get_id(), total, False)
                 atendimento = Service.atendimento_listar()[-1]
                 Service.atendimentoitem_inserir(atendimento.get_id(), servico.get_id(), qtd, servico.get_valor())
                 st.success("Atendimento registrado")

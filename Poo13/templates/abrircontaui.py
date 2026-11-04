@@ -13,7 +13,7 @@ class AbrirContaUI:
             try:
                 Service.cliente_inserir(nome, email, fone, senha)
                 st.success("Conta criada com sucesso")
+                time.sleep(2)
+                st.rerun()
             except ValueError as erro:
                 st.error(erro)
-            time.sleep(2)
-            st.rerun()

@@ -5,26 +5,35 @@ class Profissional:
         self.set_email(email)
         self.set_especialidade(especialidade)
         self.set_senha(senha)
-   
+
     def set_id(self, id):
         if id < 0: raise ValueError("Id deve ser positivo")
         self.__id = id
 
-    def set_nome(self, nome):
-        if nome == "": raise ValueError("Nome deve ser informado")
-        self.__nome = nome
-
-    def set_email(self, email):
-            if email == "": raise ValueError("E-mail deve ser informado")
-            self.__email = email
+    try:   
+        def set_nome(self, nome):
+            if nome == "": raise ValueError("Nome deve ser informado")
+            self.__nome = nome
+    except ValueError as e:
+        print('Não tem nada escrito: ', e)
+        
+    try:
+        def set_email(self, email):
+                if email == "": raise ValueError("E-mail deve ser informado")
+                self.__email = email
+    except ValueError as e:
+        print('Não tem nada escrito: ', e)
 
     def set_especialidade(self, especialidade):
             if especialidade == "": raise ValueError("Especialidade deve ser informada")
             self.__especialidade = especialidade
-   
-    def set_senha(self, senha):
-        if senha == "": raise ValueError("Senha deve ser informada")
-        self.__senha = senha
+
+    try:
+        def set_senha(self, senha):
+            if senha == "": raise ValueError("Senha deve ser informada")
+            self.__senha = senha
+    except ValueError as e:
+        print('Não tem nada escrito: ', e)
 
     def get_id(self) : return self.__id
     def get_nome(self) : return self.__nome

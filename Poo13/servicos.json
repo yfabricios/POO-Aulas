@@ -8,5 +8,10 @@
     "id": 2,
     "descricao": "Fazer p\u00e3o",
     "valor": 100.0
+  },
+  {
+    "id": 3,
+    "descricao": "Obra de uma casa",
+    "valor": 80.0
   }
 ]

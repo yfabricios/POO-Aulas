@@ -30,11 +30,10 @@ class ManterClienteUI:
             try:
                 Service.cliente_inserir(nome, email, fone, senha)
                 st.success("Cliente inserido com sucesso")
-
+                time.sleep(2)
+                st.rerun()
             except ValueError as erro:
                 st.error(erro)
-            time.sleep(2)
-            st.rerun()
 
     def atualizar():
         clientes = Service.cliente_listar()
@@ -50,10 +49,10 @@ class ManterClienteUI:
                     id = op.get_id()
                     Service.cliente_atualizar(id, nome, email, fone, senha)
                     st.success("Cliente atualizado com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                time.sleep(2)
-                st.rerun()
 
     def excluir():
         clientes = Service.cliente_listar()
@@ -65,7 +64,7 @@ class ManterClienteUI:
                     id = op.get_id()
                     Service.cliente_excluir(id)
                     st.success("Cliente excluído com sucesso")
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                time.sleep(2)
-                st.rerun()

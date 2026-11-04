@@ -28,11 +28,10 @@ class ManterServicoUI:
             try:
                 Service.servico_inserir(descr, float(valor))
                 st.success("Serviço inserido com sucesso")
-
+                time.sleep(2)
+                st.rerun()
             except ValueError as erro:
                 st.error(erro)
-            time.sleep(2)
-            st.rerun()
 
     def atualizar():
         servicos = Service.servico_listar()
@@ -46,11 +45,11 @@ class ManterServicoUI:
                     id = op.get_id()
                     Service.servico_atualizar(id, descr, float(valor))
                     st.success("Serviço atualizado com sucesso")
-
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                time.sleep(2)
-                st.rerun()
+                
 
     def excluir():
         servicos = Service.servico_listar()
@@ -62,8 +61,8 @@ class ManterServicoUI:
                     id = op.get_id()
                     Service.servico_excluir(id)
                     st.success("Serviço excluído com sucesso")
-
+                    time.sleep(2)
+                    st.rerun()
                 except ValueError as erro:
                     st.error(erro)
-                time.sleep(2)
-                st.rerun()
+

@@ -25,9 +25,7 @@ class ManterHorarioUI:
                 if cliente != None: cliente = cliente.get_nome()
                 if servico != None: servico = servico.get_descricao()
                 if profissional != None: profissional = profissional.get_nome()
-                dic.append({"id" : obj.get_id(), "data" : obj.get_data(),
-                "confirmado" : obj.get_confirmado(), "cliente" : cliente,
-                "serviço" : servico, "profissional" : profissional})
+                dic.append({"id" : obj.get_id(), "data" : obj.get_data(), "confirmado" : obj.get_confirmado(), "cliente" : cliente, "serviço" : servico, "profissional" : profissional})
             df = pd.DataFrame(dic) 
             st.dataframe(df)
 
@@ -41,16 +39,21 @@ class ManterHorarioUI:
         servico = st.selectbox("Informe o serviço", servicos, index = None)
         profissional = st.selectbox("Informe o profissional", profissionais, index = None)
         if st.button("Inserir"):
-            id_cliente = None
-            id_servico = None
-            id_profissional = None
-            if cliente != None: id_cliente = cliente.get_id()
-            if servico != None: id_servico = servico.get_id()
-            if profissional != None: id_profissional = profissional.get_id()
-            Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
-            st.success("Horário inserido com sucesso")
-            time.sleep(2)
-            st.rerun()
+            try:
+                id_cliente = None
+                id_servico = None
+                id_profissional = None
+                if cliente != None: id_cliente = cliente.get_id()
+                if servico != None: id_servico = servico.get_id()
+                if profissional != None: id_profissional = profissional.get_id()
+                Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
+                st.success("Horário inserido com sucesso")
+                time.sleep(2)
+                st.rerun()
+            except ValueError as e:
+                st.error('Erro na validação: ', e)
+            except Exception as e:
+                st.error('Erro inesperado: ', e)
 
     def atualizar():
         horarios = Service.horario_listar()
@@ -70,16 +73,22 @@ class ManterHorarioUI:
             profissional = st.selectbox("Informe o novo profissional", profissionais,\
                            next((i for i, s in enumerate(profissionais) if s.get_id() == id_profissional), None))
             if st.button("Atualizar"):
-                id_cliente = None
-                id_servico = None
-                id_profissional = None
-                if cliente != None: id_cliente = cliente.get_id()
-                if servico != None: id_servico = servico.get_id()
-                if profissional != None: id_profissional = profissional.get_id()
-                Service.horario_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
-                st.success("Horário atualizado com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try:
+                    id_cliente = None
+                    id_servico = None
+                    id_profissional = None
+                    if cliente != None: id_cliente = cliente.get_id()
+                    if servico != None: id_servico = servico.get_id()
+                    if profissional != None: id_profissional = profissional.get_id()
+                    Service.horario_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
+                    st.success("Horário atualizado com sucesso")
+                    time.sleep(2)
+                    st.rerun()
+                except ValueError as e:
+                    st.error('Erro na validação: ', e)
+                except Exception as e:
+                    st.error('Erro inesperado: ', e)
+
 
     def excluir():
         horarios = Service.horario_listar()
@@ -87,7 +96,12 @@ class ManterHorarioUI:
         else:
             op = st.selectbox("Exclusão de Horários", horarios)
             if st.button("Excluir"):
-                Service.horario_excluir(op.get_id())
-                st.success("Horário excluído com sucesso")
-                time.sleep(2)
-                st.rerun()
+                try:
+                    Service.horario_excluir(op.get_id())
+                    st.success("Horário excluído com sucesso")
+                    time.sleep(2)
+                    st.rerun()
+                except ValueError as e:
+                    st.error('Erro na validação: ', e)
+                except Exception as e:
+                    st.error('Erro inesperado: ', e)
