@@ -16,8 +16,17 @@ from datetime import datetime, timedelta
 class Service:
     @staticmethod
     def cliente_inserir(nome, email, fone, senha):
+        if email == "admin": raise ValueError('E-mail reservado para o admin')
+
+        for obj in Service.cliente_listar():
+            if obj.get_email() == email: raise ValueError("E-mail já cadastrado em outro cliente")
+
+        for obj in Service.profissional_listar():
+            if obj.get_email() == email: raise ValueError("E-mail já cadastrado em um profissonal")
+
         obj = Cliente(0, nome, email, fone, senha)
         ClienteDAO().inserir(obj)
+
     @staticmethod
     def cliente_listar():
         r = ClienteDAO().listar()
@@ -26,13 +35,27 @@ class Service:
     @staticmethod
     def cliente_listar_id(id):
         return ClienteDAO().listar_id(id)
+    
     @staticmethod
     def cliente_atualizar(id, nome, email, fone, senha):
+        if email == "admin": raise ValueError('E-mail reservado para o admin')
+
+        for obj in Service.cliente_listar():
+            if obj.get_if() != id and obj.get_email() == email: raise ValueError("E-mail já cadastrado em outro cliente")
+
+        for obj in Service.profissional_listar():
+            if obj.get_email() == email: raise ValueError("E-mail já cadastrado em um profissonal")
+
         obj = Cliente(id, nome, email, fone, senha)
         ClienteDAO().atualizar(obj)
+
     @staticmethod
     def cliente_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_cliente() == id:
+                raise ValueError("Cliente possui horário agendado: não é possível excluir")
         ClienteDAO().excluir(id)
+
     @staticmethod
     def cliente_visualizar_servicos(id_cliente):
         h = []
@@ -184,7 +207,6 @@ class Service:
 
     @staticmethod
     def atendimentoitem_inserir(id_atendimento, id_servico, qtd, valor):
-        # Corrigido para seguir a ordem correta dos parâmetros do AtendimentoItens: (id, id_atendimento, id_servico, qtd, valor)
         obj = AtendimentoItens(0, id_atendimento, id_servico, qtd, valor)
         AtendimentoItensDAO().inserir(obj)
 
