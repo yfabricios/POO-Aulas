@@ -97,8 +97,7 @@ class Service:
             if obj.get_id_servico() == id:
                 raise ValueError("Serviço já agendado: não é possível excluir")
 
-        c = Servico(id, "sem descrição", 0)
-        ServicoDAO().excluir(c)
+        ServicoDAO().excluir(id)
 
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):

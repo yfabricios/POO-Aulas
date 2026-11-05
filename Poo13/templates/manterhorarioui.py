@@ -52,8 +52,6 @@ class ManterHorarioUI:
                 st.rerun()
             except ValueError as e:
                 st.error('Erro na validação: ', e)
-            except Exception as e:
-                st.error('Erro inesperado: ', e)
 
     def atualizar():
         horarios = Service.horario_listar()
@@ -70,8 +68,7 @@ class ManterHorarioUI:
             id_profissional = None if op.get_id_profissional() in [0, None] else op.get_id_profissional()
             cliente = st.selectbox("Informe o novo cliente", clientes, next((i for i, c in enumerate(clientes) if c.get_id() == id_cliente), None))
             servico = st.selectbox("Informe o novo serviço", servicos, next((i for i, s in enumerate(servicos) if s.get_id() == id_servico), None))
-            profissional = st.selectbox("Informe o novo profissional", profissionais,\
-                           next((i for i, s in enumerate(profissionais) if s.get_id() == id_profissional), None))
+            profissional = st.selectbox("Informe o novo profissional", profissionais, next((i for i, s in enumerate(profissionais) if s.get_id() == id_profissional), None))
             if st.button("Atualizar"):
                 try:
                     id_cliente = None
@@ -86,8 +83,6 @@ class ManterHorarioUI:
                     st.rerun()
                 except ValueError as e:
                     st.error('Erro na validação: ', e)
-                except Exception as e:
-                    st.error('Erro inesperado: ', e)
 
 
     def excluir():
@@ -103,5 +98,3 @@ class ManterHorarioUI:
                     st.rerun()
                 except ValueError as e:
                     st.error('Erro na validação: ', e)
-                except Exception as e:
-                    st.error('Erro inesperado: ', e)
