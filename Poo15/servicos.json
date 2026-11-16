@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "descricao": "aula gratuita",
+    "valor": 200.0
+  },
+  {
+    "id": 3,
+    "descricao": "Obra de uma casa",
+    "valor": 80.0
+  }
+]
