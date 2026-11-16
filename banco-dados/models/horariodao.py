@@ -1,57 +1,65 @@
 from models.horario import Horario
-import json
+from models.conexao import get_connection, criar_tabelas
 
 class HorarioDAO:
     def __init__(self):
-        self.__arquivo = "horarios.json"
-        self.__objetos = []
-        self.__abrir()
+        criar_tabelas()
+        self.__conn = get_connection()
 
     def inserir(self, obj):
-        # gerar um novo id com o maior valor existente mais um
-        id = 0
-        if len(self.__objetos) > 0:
-            for aux in self.__objetos:
-                if aux.get_id() > id: id = aux.get_id()
-        obj.set_id(id + 1)
-        self.__objetos.append(obj)
-        self.__salvar()
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            "INSERT INTO horarios (data, confirmado, id_cliente, id_servico) VALUES (?, ?, ?, ?)",
+            (
+                obj.get_data(),
+                int(obj.get_confirmado()),
+                obj.get_id_cliente(),
+                obj.get_id_servico()
+            )
+        )
+        self.__conn.commit()
+        obj.set_id(cursor.execute("SELECT SCOPE_IDENTITY()").fetchone()[0])
 
-    def listar(self):                
-        return self.__objetos
+    def listar(self):
+        cursor = self.__conn.cursor()
+        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM horarios")
+        registros = cursor.fetchall()
+        horarios = []
+        for r in registros:
+            h = Horario(r[0], r[1])
+            h.set_confirmado(bool(r[2]))
+            h.set_id_cliente(r[3])
+            h.set_id_servico(r[4])
+            horarios.append(h)
+        return horarios
 
     def listar_id(self, id):
-        for obj in self.__objetos:
-            if obj.get_id() == id: return obj
-        return None
+        cursor = self.__conn.cursor()
+        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM horarios WHERE id = ?", (id,))
+        r = cursor.fetchone()
+        if r is None:
+            return None
+        h = Horario(r[0], r[1])
+        h.set_confirmado(bool(r[2]))
+        h.set_id_cliente(r[3])
+        h.set_id_servico(r[4])
+        return h
 
     def atualizar(self, obj):
-        aux = self.listar_id(obj.get_id())
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__objetos.append(obj)
-            self.__salvar()
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            "UPDATE horarios SET data = ?, confirmado = ?, id_cliente = ?, id_servico = ? WHERE id = ?",
+            (
+                obj.get_data(),
+                int(obj.get_confirmado()),
+                obj.get_id_cliente(),
+                obj.get_id_servico(),
+                obj.get_id()
+            )
+        )
+        self.__conn.commit()
 
     def excluir(self, id):
-        aux = self.listar_id(id)
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__salvar()
-
-    def __abrir(self):  
-        try:  
-            arquivo = open(self.__arquivo, mode = "r")
-            list_dic = json.load(arquivo)
-            arquivo.close()
-            self.__objetos = []
-            for dic in list_dic:
-                obj = Horario.from_json(dic)
-                self.__objetos.append(obj)
-        except FileNotFoundError:
-            pass
-
-    def __salvar(self):    
-        arquivo = open(self.__arquivo, mode = "w")
-        json.dump(self.__objetos, arquivo, default = Horario.to_json, indent = 2)
-        arquivo.close()
-        
+        cursor = self.__conn.cursor()
+        cursor.execute("DELETE FROM horarios WHERE id = ?", (id,))
+        self.__conn.commit()

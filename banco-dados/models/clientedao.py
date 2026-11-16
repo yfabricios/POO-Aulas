@@ -1,57 +1,43 @@
 from models.cliente import Cliente
-import json
+from models.conexao import get_connection, criar_tabelas
 
 class ClienteDAO:
     def __init__(self):
-        self.__arquivo = "clientes.json"
-        self.__objetos = []
-        self.__abrir()
+        criar_tabelas()
+        self.__conn = get_connection()
 
     def inserir(self, obj):
-        # gerar um novo id com o maior valor existente mais um
-        id = 0
-        if len(self.__objetos) > 0:
-            for aux in self.__objetos:
-                if aux.get_id() > id: id = aux.get_id()
-        obj.set_id(id + 1)
-        self.__objetos.append(obj)
-        self.__salvar()
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            "INSERT INTO clientes (nome, email, fone) VALUES (?, ?, ?)",
+            (obj.get_nome(), obj.get_email(), obj.get_fone())
+        )
+        self.__conn.commit()
+        obj.set_id(cursor.execute("SELECT SCOPE_IDENTITY()").fetchone()[0])
 
-    def listar(self):                
-        return self.__objetos
+    def listar(self):
+        cursor = self.__conn.cursor()
+        cursor.execute("SELECT id, nome, email, fone FROM clientes")
+        registros = cursor.fetchall()
+        return [Cliente(r[0], r[1], r[2], r[3]) for r in registros]
 
     def listar_id(self, id):
-        for obj in self.__objetos:
-            if obj.get_id() == id: return obj
-        return None
+        cursor = self.__conn.cursor()
+        cursor.execute("SELECT id, nome, email, fone FROM clientes WHERE id = ?", (id,))
+        r = cursor.fetchone()
+        if r is None:
+            return None
+        return Cliente(r[0], r[1], r[2], r[3])
 
     def atualizar(self, obj):
-        aux = self.listar_id(obj.get_id())
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__objetos.append(obj)
-            self.__salvar()
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            "UPDATE clientes SET nome = ?, email = ?, fone = ? WHERE id = ?",
+            (obj.get_nome(), obj.get_email(), obj.get_fone(), obj.get_id())
+        )
+        self.__conn.commit()
 
     def excluir(self, id):
-        aux = self.listar_id(id)
-        if aux != None:
-            self.__objetos.remove(aux)
-            self.__salvar()
-
-    def __abrir(self):  
-        try:  
-            arquivo = open(self.__arquivo, mode = "r")
-            list_dic = json.load(arquivo)
-            arquivo.close()
-            self.__objetos = []
-            for dic in list_dic:
-                obj = Cliente.from_json(dic)
-                self.__objetos.append(obj)
-        except FileNotFoundError:
-            pass
-
-    def __salvar(self):    
-        arquivo = open(self.__arquivo, mode = "w")
-        json.dump(self.__objetos, arquivo, default = Cliente.to_json, indent = 2)
-        arquivo.close()
-        
+        cursor = self.__conn.cursor()
+        cursor.execute("DELETE FROM clientes WHERE id = ?", (id,))
+        self.__conn.commit()
