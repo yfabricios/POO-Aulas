@@ -1,9 +1,13 @@
 from models.horario import Horario
-from models.conexao import get_connection, criar_tabelas
+from models.conexao import conectar
+
+
+def get_connection():
+    return conectar()
+
 
 class HorarioDAO:
     def __init__(self):
-        criar_tabelas()
         self.__conn = get_connection()
 
     def inserir(self, obj):
@@ -18,11 +22,12 @@ class HorarioDAO:
             )
         )
         self.__conn.commit()
-        obj.set_id(cursor.execute("SELECT SCOPE_IDENTITY()").fetchone()[0])
+        id_gerado = cursor.execute("SELECT SCOPE_IDENTITY()").fetchone()
+        obj.set_id(id_gerado[0] if id_gerado and id_gerado[0] is not None else 0)
 
     def listar(self):
         cursor = self.__conn.cursor()
-        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM horarios")
+        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM Horarios")
         registros = cursor.fetchall()
         horarios = []
         for r in registros:
@@ -35,7 +40,7 @@ class HorarioDAO:
 
     def listar_id(self, id):
         cursor = self.__conn.cursor()
-        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM horarios WHERE id = ?", (id,))
+        cursor.execute("SELECT id, data, confirmado, id_cliente, id_servico FROM Horarios WHERE id = ?", (id,))
         r = cursor.fetchone()
         if r is None:
             return None
@@ -48,7 +53,7 @@ class HorarioDAO:
     def atualizar(self, obj):
         cursor = self.__conn.cursor()
         cursor.execute(
-            "UPDATE horarios SET data = ?, confirmado = ?, id_cliente = ?, id_servico = ? WHERE id = ?",
+            "UPDATE Horarios SET data = ?, confirmado = ?, id_cliente = ?, id_servico = ? WHERE id = ?",
             (
                 obj.get_data(),
                 int(obj.get_confirmado()),
@@ -61,5 +66,5 @@ class HorarioDAO:
 
     def excluir(self, id):
         cursor = self.__conn.cursor()
-        cursor.execute("DELETE FROM horarios WHERE id = ?", (id,))
+        cursor.execute("DELETE FROM Horarios WHERE id = ?", (id,))
         self.__conn.commit()

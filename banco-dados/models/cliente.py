@@ -6,6 +6,9 @@ class Cliente:
         self.set_fone(fone)
     
     def set_id(self, id):
+        if id is None:
+            self.__id = 0
+            return
         if id < 0: raise ValueError("Id deve ser positivo")
         self.__id = id
     def set_nome(self, nome):
