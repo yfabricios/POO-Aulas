@@ -1,35 +1,13 @@
 [
   {
     "id": 1,
-    "data": "08/10/2026 13:55",
-    "queixa_principal": "dor de cabe\u00e7a",
-    "historico_saude": "sem nenhuma anormidade",
-    "avaliacao": "ele esta bem",
-    "prescricao": "dipirona",
-    "id_horario": 5,
-    "total": 0.0,
-    "pago": true
-  },
-  {
-    "id": 2,
-    "data": "20/10/2026 10:58",
-    "queixa_principal": "dor nos dentes",
-    "historico_saude": "ruim",
-    "avaliacao": "pessimo",
-    "prescricao": "bentabenzil",
+    "data": "17/11/2026 15:03",
+    "queixa_principal": "vis\u00e3o embasada ",
+    "historico_saude": "boa",
+    "avaliacao": "ele esta com uma lente de grau errada",
+    "prescricao": "uma lente nova",
     "id_horario": 1,
     "total": 200.0,
-    "pago": true
-  },
-  {
-    "id": 3,
-    "data": "04/11/2026 11:01",
-    "queixa_principal": "fiz tudo na obra, inclusive bati laje",
-    "historico_saude": "bom",
-    "avaliacao": "boa",
-    "prescricao": "luvas novas",
-    "id_horario": 6,
-    "total": 6400.0,
     "pago": true
   }
 ]
