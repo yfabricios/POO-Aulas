@@ -6,10 +6,10 @@ class ServicoDAO(DAO):
     def inserir(cls, obj):
         cls.abrir()
         sql = """
-            INSERT INTO servico (nome, email, fone, senha)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO servico (descricao, valor)
+            VALUES (?, ?)
         """
-        cls.execute(sql, (obj.get_nome(), obj.get_email(), obj.get_fone(), obj.get_senha()))
+        cls.execute(sql, (obj.get_descricao(), obj.get_valor()))
         cls.fechar()
 
     @classmethod
@@ -19,7 +19,7 @@ class ServicoDAO(DAO):
         cursor = cls.execute(sql)
 
         rows = cursor.fetchall()
-        objs = [Servico(id, nome, email, fone, senha) for (id, nome, email, fone, senha) in rows]
+        objs = [Servico(id, descricao, valor) for (id, descricao, valor) in rows]
         cls.fechar()
         return objs
 
@@ -37,15 +37,15 @@ class ServicoDAO(DAO):
     def atualizar(cls, obj):
         cls.abrir()
         sql = """
-            UPDATE servico SET nome=?, email=?, fone=?, senha=?
+            UPDATE servico SET descricao=?, valor=?
             WHERE id=?
         """
-        cls.execute(sql, (obj.get_nome(), obj.get_email(), obj.get_fone(), obj.get_senha(), obj.get_id()))
+        cls.execute(sql, (obj.get_descricao(), obj.get_valor(), obj.get_id()))
         cls.fechar()
 
     @classmethod
-    def excluir(cls, obj):
+    def excluir(cls, id):
         cls.abrir()
         sql = "DELETE FROM servico WHERE id=?"
-        cls.execute(sql, (obj,))
+        cls.execute(sql, (id,))
         cls.fechar()
